@@ -1,0 +1,50 @@
+! inlist_create
+
+&star_job
+
+
+      save_model_filename = <<CREATE_MODEL>>
+      radius_in_cm_for_create_initial_model = <<INITIAL_RADIUS>> 
+      mass_in_gm_for_create_initial_model = <<INITIAL_MASS>> 
+
+      save_model_when_terminate = .true.
+      show_log_description_at_start = .false.
+      create_initial_model = .true.
+      initial_model_relax_num_steps = 0
+      set_initial_age = .true.
+      initial_age = 0.0 
+      eos_file_prefix = 'mesa'
+      kappa_file_prefix = 'gs98'
+      kappa_lowT_prefix = 'lowT_Freedman11'
+      change_lnPgas_flag = .true.
+      new_lnPgas_flag = .true.
+      
+
+/ !end of star_job
+
+&controls
+
+	initial_Z = <<Z>>
+	initial_Y = <<Y>>
+
+
+	! when to stop
+	max_age = 1.d3
+        max_model_number = 1000
+
+	T_mix_limit = 0
+
+	! output to files and terminal
+	photostep = 500
+	profile_interval = 100
+	max_num_profile_models=1
+	history_interval = 100
+	terminal_cnt = 20
+	write_header_frequency = 10
+
+/
+
+
+&pgstar
+         
+/ ! end of pgstar namelist
