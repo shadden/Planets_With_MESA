@@ -18,9 +18,19 @@ AU_cm = 1.496e13
 
 F_Earth_erg_cm2s =  LSun_erg_s /  AU_cm**2 / 4.  /  np.pi
 
-topdir = "/Users/samuelhadden/26_MESA/"
-work_dir = topdir+"/mesa-r8118/star/work"
-inlists_dir = topdir+"Planets_With_MESA/PlanetModelInlistFiles"
+who =os.popen("whoami") 
+if who.readline().strip() =='samuelhadden':
+	print "On laptop..."
+	topdir = "/Users/samuelhadden/26_MESA/"
+	work_dir = topdir+"/mesa-r8118/star/work"
+	inlists_dir = topdir+"Planets_With_MESA/PlanetModelInlistFiles"
+else:
+	print "On Quest..."
+	topdir = "/projects/p20783/sjh890/"
+	work_dir = topdir+"/mesa/star/work"
+	inlists_dir = topdir+"/01_MESA_Projects/Planets_With_MESA/PlanetModelInlistFiles"
+who.close()
+
 
 def line_read(finame):
 	with open(finame,"r") as fi:
@@ -166,7 +176,3 @@ class PlanetModel(object):
 		call(["./mk"])
 		call(["./rn"])		
 		os.chdir(cwd)
-			
-if __name__=="__main__":
-	pl = PlanetModel("./planet1","planet",10,5,7.,1.0,3.e9)
-	pl.SetupDirectory()
