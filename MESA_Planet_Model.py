@@ -59,7 +59,7 @@ class PlanetModel(object):
 		self._EVOLVE_MODEL = "'"+self._EVOLVE_MODEL+"'"
 
 		self._INITIAL_RADIUS = 20.0 * R_Earth_cm
-		self._INITIAL_MASS = 1.0e-4 * M_Sun_g
+		self._INITIAL_MASS = np.max([ total_mass  , 1.0e-4 * M_Sun_g] )
 
 		self._PLANET_MASS  = total_mass * M_Earth_g / M_Sun_g
 		self._CORE_MASS = core_mass * M_Earth_g / M_Sun_g 
