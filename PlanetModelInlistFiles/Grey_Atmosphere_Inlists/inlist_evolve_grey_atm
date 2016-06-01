@@ -2,20 +2,18 @@
 
 &star_job
 
-      saved_model_name = <<MASS_RELAX_MODEL>>
-      save_model_filename = <<EVOLVE_MODEL>>
+      saved_model_name = 'planet_mass_relax.mod'
+      save_model_filename = 'planet_evolve.mod'
 
       show_log_description_at_start = .false.
       load_saved_model = .true.
       save_model_when_terminate = .true.
-
-     ! reset age and model number
-
+      
       set_initial_model_number = .true.
       initial_model_number = 0
       set_initial_age = .true.
       initial_age = 0.0 ! in years
-      
+
       eos_file_prefix = 'mesa'
       kappa_file_prefix = 'gs98'
       kappa_lowT_prefix = 'lowT_Freedman11'
@@ -28,10 +26,15 @@
 
 &controls
 
-	! surface heating
-	column_depth_for_irradiation = <<RADIATION_COLUMN_DEPTH>>
-        irradiation_flux =  <<FLUX>>
-	max_age = <<AGE>> 
+	which_atm_option = 'grey_irradiated'
+	
+	atm_grey_irradiated_T_eq = 300	
+	atm_grey_irradiated_kap_v = 4d-3
+	atm_grey_irradiated_simple_kap_th = .true.
+	atm_grey_irr_kap_v_div_kap_th = 2.5
+	atm_grey_irradiated_P_surf = 1d6
+	atm_grey_irradiated_max_tries = 50
+
 
 	max_model_number = 1000 	! don't let it go on and on if run stuck
 	Teff_lower_limit = 100.0
