@@ -16,7 +16,7 @@ TSun_K = 5.78e3
 
 AU_cm = 1.496e13
 
-Stefan_Boltzmann = 5.6704d-5
+Stefan_Boltzmann = 5.6704e-5
 
 F_Earth_erg_cm2s =  LSun_erg_s /  AU_cm**2 / 4.  /  np.pi
 
