@@ -100,6 +100,7 @@ class PlanetModel(object):
 				"Z":self._Z,\
 				"Y":self._Y,\
 				"RADIATION_COLUMN_DEPTH":self._RADIATION_COLUMN_DEPTH,\
+				"TEMPERATURE":self._TEMPERATURE,\
 				"P_SURFACE":self._P_SURFACE
 				}
 
