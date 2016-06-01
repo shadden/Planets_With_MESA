@@ -44,7 +44,7 @@
 	photostep = 500
 	profile_interval = 100
 	max_num_profile_models=5
-	history_interval = 100
+	history_interval = 10
 	terminal_cnt = 10
 	write_header_frequency = 10
 

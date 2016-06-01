@@ -16,6 +16,8 @@ TSun_K = 5.78e3
 
 AU_cm = 1.496e13
 
+Stefan_Boltzmann = 5.6704d-5
+
 F_Earth_erg_cm2s =  LSun_erg_s /  AU_cm**2 / 4.  /  np.pi
 
 who =os.popen("whoami") 
@@ -23,7 +25,7 @@ if who.readline().strip() =='samuelhadden':
 	print "On laptop..."
 	topdir = "/Users/samuelhadden/26_MESA/"
 	work_dir = topdir+"/mesa-r8118/star/work"
-	inlists_dir = topdir+"Planets_With_MESA/PlanetModelInlistFiles"
+	inlists_dir = topdir+"Planets_With_MESA/PlanetModelInlistFiles/Grey_Atmosphere_Inlists"
 else:
 	print "On Quest..."
 	topdir = "/projects/p20783/sjh890/"
@@ -68,7 +70,11 @@ class PlanetModel(object):
 
 		self._FLUX = flux * F_Earth_erg_cm2s 
 		
+		self._TEMPERATURE = ( 0.25 * self._FLUX / Stefan_Boltzmann )**0.25
+		
 		self._AGE = age
+
+		self._P_SURFACE = 1.e6 # depth of atmosphere
 
 		self._Z = 0.02
 		self._Y = 0.25
@@ -93,7 +99,8 @@ class PlanetModel(object):
 				"AGE":self._AGE,\
 				"Z":self._Z,\
 				"Y":self._Y,\
-				"RADIATION_COLUMN_DEPTH":self._RADIATION_COLUMN_DEPTH\
+				"RADIATION_COLUMN_DEPTH":self._RADIATION_COLUMN_DEPTH,\
+				"P_SURFACE":self._P_SURFACE
 				}
 
 	def SetCreateModel(self,model):
