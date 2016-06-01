@@ -31,6 +31,8 @@
 	max_age = 2.d3
         max_model_number = 1000         ! don't let it go on and on if run stuck
 
+	!which_atm_option = 'grey_irradiated'
+
 	! knobs
 	!use_lnE_for_eps_grav = .false.
 	T_mix_limit = 0
