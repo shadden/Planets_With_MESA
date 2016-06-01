@@ -37,7 +37,7 @@
 	which_atm_option = 'grey_irradiated'
 	
 	atm_grey_irradiated_T_eq = <<TEMPERATURE>>
-	atm_grey_irradiated_kap_v = 4d-3
+	atm_grey_irradiated_kap_v = 1.d-2
 	atm_grey_irradiated_simple_kap_th = .true.
 	atm_grey_irr_kap_v_div_kap_th = 2.5
 	atm_grey_irradiated_P_surf = <<P_SURFACE>>
