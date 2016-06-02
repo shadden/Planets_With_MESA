@@ -1,0 +1,61 @@
+! inlist_evolve
+
+&star_job
+
+
+      saved_model_name = <<MASS_RELAX_MODEL>>
+      save_model_filename = <<IRRAD_RELAX_MODEL>>
+
+      relax_irradiation = .true.
+      relax_to_this_irradiation=<<FLUX>>
+      irrad_col_depth = <<RADIATION_COLUMN_DEPTH>>
+
+      show_log_description_at_start = .false.
+      load_saved_model = .true.
+      save_model_when_terminate = .true.
+      set_initial_model_number = .true.
+      initial_model_number = 0
+      set_initial_age = .true.
+      initial_age = 0.0 ! in years
+            
+      eos_file_prefix = 'mesa'
+      kappa_file_prefix = 'gs98'
+      kappa_lowT_prefix = 'lowT_Freedman11'
+
+
+      steps_to_take_before_terminate = 100
+
+      change_lnPgas_flag = .true.
+      new_lnPgas_flag = .true.
+
+/ !end of star_job
+
+&controls
+
+	max_model_number = 1000     ! don't let it go on and on if run stuck
+
+
+	! output to files and terminal
+	photostep = 500
+	profile_interval = 100
+	max_num_profile_models=1
+	history_interval = 100
+	terminal_cnt = 20
+	write_header_frequency = 10
+
+  	T_mix_limit = 0
+
+
+/
+
+
+&pgstar
+         
+      ! top level controls
+
+         !pause = .true. 
+            ! if true, the code waits for user to enter a RETURN on the command line
+      
+
+
+/ ! end of pgstar namelist
