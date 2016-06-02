@@ -30,7 +30,7 @@ else:
 	print "On Quest..."
 	topdir = "/projects/p20783/sjh890/"
 	work_dir = topdir+"/mesa/star/work"
-	inlists_dir = topdir+"/01_MESA_Projects/Planets_With_MESA/PlanetModelInlistFiles"
+	inlists_dir = topdir+"/01_MESA_Projects/Planets_With_MESA/PlanetModelInlistFiles/Grey_Atmosphere_Inlists"
 who.close()
 
 
@@ -133,6 +133,7 @@ class PlanetModel(object):
 
 	def SetupDirectory(self):
 		command= ["cp","-r", work_dir , self._DIR ]
+		print command
 		call(command)
 		self.ResetInlists()
 		for fi in glob.glob(inlists_dir+"/*columns.list" ):
@@ -157,19 +158,50 @@ class PlanetModel(object):
 				fi.write(l)
 	
 	def Create(self):
+
+		# Annoying workaround for MESA crashing when creating initial models above ~550 K
+		target_temp = self._TEMPERATURE 
+		if target_temp > 500.:
+			print "resetting temperature for initial model"
+			self._TEMPERATURE = 500.
+			self.Reset_Property_Dictionary()
+			self.ResetInlists()
+
 		self.SetCurrentInlist("inlist_create")		
 		cwd = os.getcwd()		
 		os.chdir(self._DIR)
 		call(["./mk"])
 		call(["./rn"])		
 		os.chdir(cwd)
+
+		# Annoying workaround for MESA crashing when creating initial models above ~550 K
+		if target_temp > 500.:
+			self._TEMPERATURE = target_temp
+			self.Reset_Property_Dictionary()
+			self.ResetInlists()
+
 	def Core(self):
+		# Annoying workaround for MESA crashing when creating initial models above ~550 K
+		target_temp = self._TEMPERATURE 
+		if target_temp > 500.:
+			print "resetting temperature for core"
+			self._TEMPERATURE = 500.
+			self.Reset_Property_Dictionary()
+			self.ResetInlists()
+
 		self.SetCurrentInlist("inlist_core")		
 		cwd = os.getcwd()		
 		os.chdir(self._DIR)
 		call(["./mk"])
 		call(["./rn"])		
 		os.chdir(cwd)
+
+		# Annoying workaround for MESA crashing when creating initial models above ~550 K
+		if target_temp > 500.:
+			self._TEMPERATURE = target_temp
+			self.Reset_Property_Dictionary()
+			self.ResetInlists()
+
 	def RelaxMass(self):
 		self.SetCurrentInlist("inlist_mass_relax")		
 		cwd = os.getcwd()		
