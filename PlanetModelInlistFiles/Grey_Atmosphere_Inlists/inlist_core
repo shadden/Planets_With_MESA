@@ -31,7 +31,7 @@
 	max_age = 2.d3
         max_model_number = 1000         ! don't let it go on and on if run stuck
 
-	which_atm_option = 'grey_irradiated'
+	!which_atm_option = 'grey_irradiated'
 	
 	atm_grey_irradiated_T_eq = <<TEMPERATURE>>
 	atm_grey_irradiated_kap_v = 1.d-2

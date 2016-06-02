@@ -28,7 +28,7 @@
 	initial_Y = <<Y>>
 
 
-	which_atm_option = 'grey_irradiated'
+	! which_atm_option = 'grey_irradiated'
 	
 	atm_grey_irradiated_T_eq = <<TEMPERATURE>>
 	atm_grey_irradiated_kap_v = 1.d-2

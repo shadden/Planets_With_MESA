@@ -25,7 +25,7 @@ if who.readline().strip() =='samuelhadden':
 	print "On laptop..."
 	topdir = "/Users/samuelhadden/26_MESA/"
 	work_dir = topdir+"/mesa-r8118/star/work"
-	inlists_dir = topdir+"Planets_With_MESA/PlanetModelInlistFiles/Grey_Atmosphere_Inlists"
+	inlists_dir = topdir+"Planets_With_MESA/PlanetModelInlistFiles"
 else:
 	print "On Quest..."
 	topdir = "/projects/p20783/sjh890/"
@@ -56,6 +56,10 @@ class PlanetModel(object):
 
 		self._MASS_RELAX_MODEL = name + "_mass_relax.mod"
 		self._MASS_RELAX_MODEL = "'"+self._MASS_RELAX_MODEL+"'"
+		
+		self._IRRAD_RELAX_MODEL = name + "_irrad_relax.mod"
+		self._IRRAD_RELAX_MODEL = "'"+self._IRRAD_RELAX_MODEL+"'"
+
 
 		self._EVOLVE_MODEL = name + "_evolve.mod"
 		self._EVOLVE_MODEL = "'"+self._EVOLVE_MODEL+"'"
@@ -78,7 +82,7 @@ class PlanetModel(object):
 
 		self._Z = 0.02
 		self._Y = 0.25
-		self._RADIATION_COLUMN_DEPTH = 10.
+		self._RADIATION_COLUMN_DEPTH = 2.0 / 1.e-2 #10.
 	
 		self.Reset_Property_Dictionary()
 		
@@ -89,6 +93,7 @@ class PlanetModel(object):
 				"CREATE_MODEL":self._CREATE_MODEL,\
 				"CORE_MODEL":self._CORE_MODEL,\
 				"MASS_RELAX_MODEL":self._MASS_RELAX_MODEL,\
+				"IRRAD_RELAX_MODEL":self._IRRAD_RELAX_MODEL,\
 				"EVOLVE_MODEL":self._EVOLVE_MODEL,\
 				"INITIAL_RADIUS":self._INITIAL_RADIUS,\
 				"INITIAL_MASS":self._INITIAL_MASS,\
@@ -141,7 +146,7 @@ class PlanetModel(object):
 			call(command)
 			
 	def ResetInlists(self):
-		inlists = ['inlist','inlist_create','inlist_core','inlist_mass_relax','inlist_evolve']
+		inlists = ['inlist','inlist_create','inlist_core','inlist_mass_relax','inlist_irrad_relax','inlist_evolve']
 		for inlist in inlists:
 			lines = map(self.SubstitutePropertyInString,line_read(inlists_dir+"/"+inlist))
 			with open(self._DIR+"/"+inlist,"w") as fi:
@@ -209,6 +214,15 @@ class PlanetModel(object):
 		call(["./mk"])
 		call(["./rn"])
 		os.chdir(cwd)
+
+	def RelaxIrradiation(self):
+		self.SetCurrentInlist("inlist_irrad_relax")		
+		cwd = os.getcwd()		
+		os.chdir(self._DIR)
+		call(["./mk"])
+		call(["./rn"])
+		os.chdir(cwd)
+
 	def Evolve(self):
 		self.SetCurrentInlist("inlist_evolve")
 		cwd = os.getcwd()		

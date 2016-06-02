@@ -26,9 +26,10 @@
 
 &controls
 
-	which_atm_option = 'grey_irradiated'
 	
 	max_age = <<AGE>> 
+
+	which_atm_option = 'grey_irradiated'
 
 	atm_grey_irradiated_T_eq = <<TEMPERATURE>>
 	atm_grey_irradiated_kap_v = 1.d-2
